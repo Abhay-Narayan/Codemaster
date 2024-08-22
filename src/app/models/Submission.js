@@ -9,15 +9,19 @@ const SubmissionSchema=new mongoose.Schema({
       },
     userId:{
         type:String,
-        require:true
+        required:true
     },
     name:{
         type:String,
-        require:true
+        required:true
     },
     languageId:{
         type:Number,
-        require:true
+        required:true
+    },
+    code:{
+        type:String,
+        required:true
     }
 })
 
