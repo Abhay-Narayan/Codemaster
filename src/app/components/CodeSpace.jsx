@@ -180,7 +180,7 @@ const CodeSpace = ({ language }) => {
           <hr className="text-white w-full mt-[1px]" />
 
           {isSignedIn ? (
-            <div className="w-full mt-1 overflow-auto">
+            <div className="w-full mt-1 overflow-y-auto">
               {Array.isArray(userSubs) && userSubs.length > 0 ? (
                 userSubs.map((sub) => (
                   <Submission
