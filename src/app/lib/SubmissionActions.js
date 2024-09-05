@@ -48,7 +48,7 @@ export const getSubmissions=async()=>{
 export const getSumbissionbyID=async ({subID}) => {
     try {
         dbconnect();
-        const res=await Submission.find({submissionId:subID, userId});
+        const res=await Submission.find({submissionId:subID});
         return res;
     } catch (error) {
         if (error.response) {

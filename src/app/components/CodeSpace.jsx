@@ -14,6 +14,7 @@ import {
   updateSubmission,
 } from "../lib/SubmissionActions";
 import { FaRegTrashAlt } from "react-icons/fa";
+import SubmissionSidebar from "./SubmissionSidebar";
 
 const CodeSpace = ({ language }) => {
   const { user, isSignedIn } = useUser();
@@ -173,31 +174,7 @@ const CodeSpace = ({ language }) => {
         />
 
         {/* Submissions Sidebar */}
-        <div className="w-[20%] h-[80.5vh] bg-[#1e1e1e] rounded-xl flex flex-col items-center p-1 border border-gray-700 border-b-4 border-r-4">
-          <h1 className="p-1 mt-1 text-white backdrop-blur-2xl">
-            My submissions
-          </h1>
-          <hr className="text-white w-full mt-[1px]" />
-
-          {isSignedIn ? (
-            <div className="w-full mt-1 overflow-y-auto">
-              {Array.isArray(userSubs) && userSubs.length > 0 ? (
-                userSubs.map((sub) => (
-                  <Submission
-                    key={sub._id}
-                    submission={sub}
-                    isSelected={sub._id === selectedSubmissionId}
-                    onClick={() => handleSubmissionClick(sub._id, sub.code)}
-                  />
-                ))
-              ) : (
-                <p className="text-white text-center">No submissions found.</p> // Optional: show a message if no submissions are available
-              )}
-            </div>
-          ) : (
-            <h1 className="text-white">Please Sign In to save your code</h1>
-          )}
-        </div>
+        <SubmissionSidebar userSubs={userSubs} selectedSubmissionId={selectedSubmissionId} handleSubmissionClick={handleSubmissionClick} />
 
         {/* Code Editor */}
         <div className="w-[50%] h-[80.5vh] rounded-xl">

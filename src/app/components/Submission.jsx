@@ -10,7 +10,7 @@ const Submission = ({submission, isSelected, onClick}) => {
       onClick={onClick}
       className={`mt-[2px] rounded-md w-full p-1 text-${textColor} ${isSelected? 'bg-white':'bg-white/10'} shadow-lg ring-1 ring-black/5 text-center ${!isSelected && 'hover:bg-white/20'} hover:cursor-pointer`}
     >
-      {submission.name}&nbsp;-&nbsp;{lname}
+      {submission.name}
     </div>
   )
 }
