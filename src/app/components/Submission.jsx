@@ -7,7 +7,7 @@ const Submission = ({submission, isSelected, onClick}) => {
   const language=languages.find((item)=>item.id===submission.languageId);
   const lname=language.name;
   const textColor = isSelected ? 'black' : 'white';
-  const copycontent='https://codemaster-navy.vercel.app//submissions/'+submission.submissionId;
+  const copycontent='https://codemaster-navy.vercel.app/submissions/'+submission.submissionId;
   const handlesharebutton=()=>{
     navigator.clipboard.writeText(copycontent)
     .then(()=>{
