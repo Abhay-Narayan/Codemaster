@@ -1,4 +1,5 @@
 'use server'
+import mongoose from 'mongoose';
 import axios from "axios";
 import {auth} from '@clerk/nextjs/server'
 import { dbconnect } from "./mongoose";
@@ -45,11 +46,16 @@ export const getSubmissions=async()=>{
     }
 }
 
-export const getSumbissionbyID=async ({subID}) => {
+export const getSubmissionByID = async ({ subID }) => {
     try {
         dbconnect();
-        const res=await Submission.find({submissionId:subID});
-        return res;
+        const res = await Submission.findOne({ submissionId: subID }); // use findOne for a single document
+        if (!res) {
+            throw new Error(`Submission with ID ${subID} not found`);
+        }
+        const plainSubmission = res.toObject(); // Converts the document to a plain object
+        plainSubmission._id = res._id.toString(); // Convert ObjectId to string
+        return plainSubmission;
     } catch (error) {
         if (error.response) {
             console.error('Error retrieving submission:', error.response.data.error);
@@ -57,7 +63,8 @@ export const getSumbissionbyID=async ({subID}) => {
             console.error('An unexpected error occurred:', error.message);
         }
     }
-}
+};
+
 
 export const updateSubmission=async({id,code, languageId})=>{
     try {

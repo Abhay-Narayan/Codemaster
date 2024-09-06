@@ -3,7 +3,7 @@ import Submission from './Submission'
 import { useUser } from "@clerk/nextjs";
 import { IoIosSearch } from "react-icons/io";
 
-const SubmissionSidebar = ({userSubs, handleSubmissionClick, selectedSubmissionId}) => {
+const SubmissionSidebar = ({singlesub, userSubs, handleSubmissionClick, selectedSubmissionId, subpage}) => {
     const { isSignedIn } = useUser();
     const [filterSubs, setFilterSubs] = useState(userSubs);
     const [searchTerm, setSearchTerm] = useState('');
@@ -27,9 +27,9 @@ const SubmissionSidebar = ({userSubs, handleSubmissionClick, selectedSubmissionI
     const handleOnChange = (e) => {
         setSearchTerm(e.target.value);
     }
-
+    const ht=subpage? "90vh":"80.5vh"
     return (
-        <div className="w-[20%] h-[80.5vh] bg-[#1e1e1e] rounded-xl flex flex-col items-center p-1 border border-gray-700 border-b-4 border-r-4">
+        <div className={`w-[20%] h-[${ht}] bg-[#1e1e1e] rounded-xl flex flex-col items-center p-1 border border-gray-700 border-b-4 border-r-4`}>
             <h1 className="p-1 mt-1 text-white backdrop-blur-2xl">
                 My submissions
             </h1>
@@ -57,11 +57,17 @@ const SubmissionSidebar = ({userSubs, handleSubmissionClick, selectedSubmissionI
                             />
                         ))
                     ) : (
-                        <p className="text-white text-center">No submissions found.</p>
+                        !singlesub &&(
+                            <p className="text-white text-center">No submissions found.</p>
+
+                        )
                     )}
                 </div>
             ) : (
                 <h1 className="text-white">Please Sign In to save your code</h1>
+            )}
+            {singlesub && (
+                <Submission submission={singlesub} isSelected={true} />
             )}
         </div>
     )
