@@ -42,7 +42,7 @@ const SubmissionPage = ({ params }) => {
   };
   return (
     <div className="w-full flex items-center justify-center mt-2 gap-1">
-      <SubmissionSidebar subpage={true} singlesub={submission}  />
+      <SubmissionSidebar subpage={true} bgColor={'#1e1e1e'} singlesub={submission}  />
       <div className="w-[50%] h-[90vh] rounded-xl">
         <Editor
           language={language.value}
