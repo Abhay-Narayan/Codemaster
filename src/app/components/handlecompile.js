@@ -1,5 +1,4 @@
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-hot-toast";
 import axios from "axios";
 import { Base64 } from "js-base64";
 

@@ -32,7 +32,7 @@ const SubmissionSidebar = ({singlesub, userSubs, handleSubmissionClick, selected
         <div style={{
             backgroundColor:bgColor
           }} 
-        className={`w-[20%] h-[${ht}] ${bgColor=='white'? 'text-black':'text-white'} rounded-xl flex flex-col items-center p-1 border border-gray-700 border-b-4 border-r-4`}>
+        className={`w-[20%] h-[${ht}] ${bgColor=='white'? 'text-black':'text-white'} rounded-xl flex flex-col items-center p-1 border border-gray-700 border-b-4 border-r-4 transition-none`}>
             <h1 className="p-1 mt-1 backdrop-blur-2xl">
                 My submissions
             </h1>
@@ -45,7 +45,7 @@ const SubmissionSidebar = ({singlesub, userSubs, handleSubmissionClick, selected
                     onChange={handleOnChange}
                     value={searchTerm}
                 />
-                <IoIosSearch className='absolute right-1 top-2.5 text-2xl text-white' />
+                <IoIosSearch className={`absolute right-1 top-2.5 text-2xl  ${bgColor=='white'? 'text-black':'text-white'} `} />
             </div>
 
             {isSignedIn ? (
@@ -62,13 +62,13 @@ const SubmissionSidebar = ({singlesub, userSubs, handleSubmissionClick, selected
                         ))
                     ) : (
                         !singlesub &&(
-                            <p className="text-white text-center">No submissions found.</p>
+                            <p className={`text-center`}>No submissions found.</p>
 
                         )
                     )}
                 </div>
             ) : (
-                <h1 className="text-white">Please Sign In to save your code</h1>
+                <h1 className="">Please Sign In to save your code</h1>
             )}
             {singlesub && (
                 <Submission submission={singlesub} isSelected={true} />

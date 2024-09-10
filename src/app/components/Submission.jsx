@@ -1,7 +1,7 @@
 import React from 'react';
 import { languages } from './languages';
 import { CiShare2 } from "react-icons/ci";
-import { toast, ToastContainer } from 'react-toastify';
+import { toast, Toaster } from 'react-hot-toast';
 
 const Submission = ({ submission, isSelected, onClick, bgColor }) => {
   const language = languages.find((item) => item.id === submission.languageId);
@@ -21,17 +21,17 @@ const Submission = ({ submission, isSelected, onClick, bgColor }) => {
     mt-[2px] rounded-md w-full p-1 h-auto 
     ${isWhiteBg ? 'text-black border border-gray-400 shadow-none' : ' shadow-lg'} 
     ${isSelected ? (isWhiteBg ? 'bg-gray-400' : 'bg-white/80 text-black') : (isWhiteBg ? 'hover:bg-gray-300' : 'bg-white/10 hover:bg-white/20')}
-    ring-1 ring-black/5 text-center hover:cursor-pointer flex items-center justify-between`;
+    ring-1 ring-black/5 text-center hover:cursor-pointer flex items-center justify-between transition-none`;
 
   const shareIconClass = `
-    w-[25px] h-[25px] hover:scale-110 
+    w-[25px] h-[25px] hover:scale-110 transition-none
     ${isSelected && isWhiteBg ? 'hover:bg-[#1e1e1e] hover:text-white' : 'hover:bg-white hover:text-black'} 
-    transition-all duration-500 border rounded-md border-gray-500`;
+     border rounded-md border-gray-500 `;
 
   return (
     <div className={containerClass} onClick={onClick}>
-      <ToastContainer />
-      <div className='text-start w-[90%]'>
+      <Toaster />
+      <div className='text-start w-[90%] transition-none'>
         {submission.name}
       </div>
       <CiShare2 onClick={handlesharebutton} className={shareIconClass} />

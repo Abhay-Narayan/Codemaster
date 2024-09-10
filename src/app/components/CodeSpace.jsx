@@ -1,8 +1,7 @@
 "use client";
 import React, { useEffect, useState, useRef } from "react";
 import Editor from "@monaco-editor/react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { Toaster, toast } from "react-hot-toast";
 import { handlecompile } from "./handlecompile";
 import OutputWindow from "./outputwindow";
 import { useUser } from "@clerk/nextjs";
@@ -30,7 +29,7 @@ const CodeSpace = ({ language, theme}) => {
   const [userSubs, setUserSubs] = useState({});
   const [selectedSubmissionId, setSelectedSubmissionId] = useState(null);
   const [bg,setBg]=useState('#1e1e1e')
-
+  const [save,Setsave]=useState(false);
 
   useEffect(() => {
     const fetchSubmissions = async () => {
@@ -39,7 +38,7 @@ const CodeSpace = ({ language, theme}) => {
     };
 
     fetchSubmissions();
-  }, [selectedSubmissionId]);
+  }, [selectedSubmissionId,save]);
 
   const handleClick = () => {
     handlecompile(setProcessing, code, customInput, setOutputDetails, language);
@@ -56,6 +55,7 @@ const CodeSpace = ({ language, theme}) => {
     const data = saveSubmission({ name, code, languageId: language.id });
     if (data) {
       toast.success("Saved");
+      Setsave(!save);
       setShowBox(false);
     }
   };
@@ -131,6 +131,11 @@ const CodeSpace = ({ language, theme}) => {
     loadThemeData(theme);
   }, [theme, bg]);
 
+  const handlenewfile=()=>{
+    setCode(`#include<bits/stdc++.h>\nusing namespace std;\n\nint main(){\n   cout<<"wtspp mate!!";\n   return 0; \n}`);
+    setSelectedSubmissionId(null);
+  }
+
   return (
     <div className="relative w-full">
       {showBox && (
@@ -155,7 +160,7 @@ const CodeSpace = ({ language, theme}) => {
       )}
 
       <div className={`w-full flex items-center justify-center mt-1 gap-1 ${showBox ? "filter blur-sm" : ""}`}>
-        <ToastContainer position="top-right" autoClose={2000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
+        <Toaster />
 
         <SubmissionSidebar bgColor={bg} userSubs={userSubs} selectedSubmissionId={selectedSubmissionId} handleSubmissionClick={handleSubmissionClick} />
 
@@ -208,7 +213,7 @@ const CodeSpace = ({ language, theme}) => {
                     <>
                       <button onClick={handleUpdateSubmission} className="border mt-1 text-white bg-purple-600 border-black border-t-0 border-l-0 border-b-4 border-r-4 rounded-lg p-1">Update Code</button>
                       <button onClick={handleDeleteSubmission} className="border mt-1 text-white bg-red-500 border-black border-t-0 border-l-0 border-b-4 border-r-4 rounded-lg p-2"><FaRegTrashAlt /></button>
-                      <button onClick={() => setCode(`#include<bits/stdc++.h>\nusing namespace std;\n\nint main(){\n   cout<<"wtspp mate!!";\n   return 0; \n}`)} className="border mt-1 text-white bg-blue-600 border-black border-t-0 border-l-0 border-b-4 border-r-4 rounded-lg p-1">New File</button>
+                      <button onClick={handlenewfile} className="border mt-1 text-white bg-blue-600 border-black border-t-0 border-l-0 border-b-4 border-r-4 rounded-lg p-1">New File</button>
                     </>
                   )}
                 </>
