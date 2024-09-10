@@ -20,7 +20,7 @@ const Submission = ({ submission, isSelected, onClick, bgColor }) => {
   const containerClass = `
     mt-[2px] rounded-md w-full p-1 h-auto 
     ${isWhiteBg ? 'text-black border border-gray-400 shadow-none' : ' shadow-lg'} 
-    ${isSelected ? (isWhiteBg ? 'bg-gray-400' : 'bg-white/80 text-black') : (isWhiteBg ? 'hover:bg-gray-300' : 'bg-white/10 hover:bg-white/20')}
+    ${isSelected ? (isWhiteBg ? 'bg-gray-400' : 'bg-white  text-black') : (isWhiteBg ? 'hover:bg-gray-300' : 'bg-white/10 hover:bg-white/20')}
     ring-1 ring-black/5 text-center hover:cursor-pointer flex items-center justify-between transition-none`;
 
   const shareIconClass = `
