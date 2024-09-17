@@ -15,6 +15,7 @@ import { FaRegTrashAlt } from "react-icons/fa";
 import SubmissionSidebar from "./SubmissionSidebar";
 import monacoThemes from "monaco-themes/themes/themelist.json";
 import { lthemes } from "../constants/lighthemes";
+import { getComplexity } from "../constants/ai_time_complexity";
 
 const CodeSpace = ({ language, theme}) => {
   
@@ -30,6 +31,7 @@ const CodeSpace = ({ language, theme}) => {
   const [selectedSubmissionId, setSelectedSubmissionId] = useState(null);
   const [bg,setBg]=useState('#1e1e1e')
   const [save,Setsave]=useState(false);
+  const [complexity,setComplexity]=useState("");
 
   useEffect(() => {
     const fetchSubmissions = async () => {
@@ -40,8 +42,9 @@ const CodeSpace = ({ language, theme}) => {
     fetchSubmissions();
   }, [selectedSubmissionId,save]);
 
-  const handleClick = () => {
-    handlecompile(setProcessing, code, customInput, setOutputDetails, language);
+  const handleClick = async() => {
+    await handlecompile(setProcessing, code, customInput, setOutputDetails, language);
+    
   };
 
   const handleEditorChange = (value) => setCode(value);
@@ -87,23 +90,17 @@ const CodeSpace = ({ language, theme}) => {
 
 
   const loadTheme = async (monaco, themeName) => {
-    console.log(`Attempting to load theme: ${themeName}`);
     try {
       if (themeName === "vs-dark" || themeName === "light") {
-        console.log(`Applying built-in theme: ${themeName}`);
         monaco.editor.setTheme(themeName);
       } else if (monacoThemes[themeName]) {
-        console.log(`Loading custom theme: ${themeName}`);
         const themeData = await import(`monaco-themes/themes/${monacoThemes[themeName]}`);
         monaco.editor.defineTheme(themeName, themeData);
         monaco.editor.setTheme(themeName);
-        console.log(`Theme ${themeName} applied successfully`);
       } else {
-        console.warn(`Theme "${themeName}" not found, using default "vs-dark"`);
         monaco.editor.setTheme("vs-dark");
       }
     } catch (error) {
-      console.error(`Error loading theme ${themeName}:`, error);
       toast.error(`Failed to load theme ${themeName}. Using default.`);
       monaco.editor.setTheme("vs-dark");
     }
@@ -135,6 +132,13 @@ const CodeSpace = ({ language, theme}) => {
     setCode(`#include<bits/stdc++.h>\nusing namespace std;\n\nint main(){\n   cout<<"wtspp mate!!";\n   return 0; \n}`);
     setSelectedSubmissionId(null);
   }
+
+  const handleComplexity=async()=>{
+    const res=await getComplexity(code);
+    setComplexity(res);
+    alert(res)
+  }
+  
 
   return (
     <div className="relative w-full">
@@ -227,6 +231,9 @@ const CodeSpace = ({ language, theme}) => {
             <h1 className="font-bold">Status: {outputDetails?.status?.description}</h1>
             <h1 className="font-bold">Memory: {outputDetails?.memory}</h1>
             <h1 className="font-bold">Time: {outputDetails?.time}</h1>
+            <button disabled={!code} onClick={handleComplexity} className="border mt-1 border-t-0 border-l-0 border-black text-white bg-green-600 border-b-4 border-r-4 rounded-lg p-1">
+                Analyze Complexity
+              </button>
           </div>
         </div>
       </div>
