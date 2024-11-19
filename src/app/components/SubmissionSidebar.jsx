@@ -5,7 +5,7 @@ import { IoIosSearch } from "react-icons/io";
 
 const SubmissionSidebar = ({singlesub, userSubs, handleSubmissionClick, selectedSubmissionId, subpage, bgColor}) => {
     const { isSignedIn } = useUser();
-    const [filterSubs, setFilterSubs] = useState(userSubs);
+    const [filterSubs, setFilterSubs] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
@@ -13,7 +13,7 @@ const SubmissionSidebar = ({singlesub, userSubs, handleSubmissionClick, selected
     }, [userSubs]);
 
     useEffect(() => {
-        if(searchTerm) {
+        if(searchTerm.trim()) {
             setFilterSubs(
                 userSubs.filter((sub) => 
                     sub.name.toLowerCase().includes(searchTerm.toLowerCase())

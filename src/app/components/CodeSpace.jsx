@@ -27,7 +27,7 @@ const CodeSpace = ({ language, theme}) => {
   const [processing, setProcessing] = useState(false);
   const [showBox, setShowBox] = useState(false);
   const [name, setName] = useState("");
-  const [userSubs, setUserSubs] = useState({});
+  const [userSubs, setUserSubs] = useState([]);
   const [selectedSubmissionId, setSelectedSubmissionId] = useState(null);
   const [bg,setBg]=useState('#1e1e1e')
   const [save,Setsave]=useState(false);
@@ -37,6 +37,7 @@ const CodeSpace = ({ language, theme}) => {
     const fetchSubmissions = async () => {
       const submissions = await getSubmissions();
       setUserSubs(submissions);
+      console.log(submissions)
     };
 
     fetchSubmissions();
