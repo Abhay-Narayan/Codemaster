@@ -37,9 +37,7 @@ const CodeSpace = ({ language, theme}) => {
     const fetchSubmissions = async () => {
       const submissions = await getSubmissions();
       setUserSubs(submissions);
-      console.log(submissions)
     };
-
     fetchSubmissions();
   }, [selectedSubmissionId,save]);
 
