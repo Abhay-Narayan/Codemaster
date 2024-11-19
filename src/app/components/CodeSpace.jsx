@@ -41,10 +41,10 @@ const CodeSpace = ({ language, theme}) => {
     const fetchSubmissions = async () => {
       const submissions = await getSubmissions(userId);
       setUserSubs(submissions);
-      
+      console.log(submissions)
     };
     fetchSubmissions();
-  }, [selectedSubmissionId,save]);
+  }, [save,userId]);
 
   const handleClick = async() => {
     await handlecompile(setProcessing, code, customInput, setOutputDetails, language);
@@ -78,6 +78,7 @@ const CodeSpace = ({ language, theme}) => {
     const deleted = await deleteSubmission({ id: selectedSubmissionId });
     if (deleted) {
       toast.success("Submission Deleted");
+      Setsave(!save)
       setSelectedSubmissionId(null);
       setCode(`#include<iostream>\nusing namespace std;\n\nint main(){\n   cout<<"wtspp mate!!";\n   return 0; \n}`);
     }
