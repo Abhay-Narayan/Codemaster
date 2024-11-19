@@ -27,10 +27,10 @@ export const saveSubmission=async({name,code,languageId})=>{
     }
 }
 
-export const getSubmissions=async()=>{
+export const getSubmissions=async(id)=>{
     try {
         dbconnect();
-        const submissions=await Submission.find({userId}).lean();
+        const submissions=await Submission.find({id}).lean();
         const res = submissions.map(submission => ({
             ...submission,
             _id: submission._id.toString(), // Convert ObjectId to string

@@ -20,6 +20,7 @@ import { getComplexity } from "../constants/ai_time_complexity";
 const CodeSpace = ({ language, theme}) => {
   
   const { user, isSignedIn } = useUser();
+  const [userId,setUserId]=useState(null);
   const id = Date.now().toString();
   const [code, setCode] = useState(`#include<bits/stdc++.h>\nusing namespace std;\n\nint main(){\n   cout<<"wtspp mate!!";\n   return 0; \n}`);
   const [customInput, setCustomInput] = useState("");
@@ -33,10 +34,14 @@ const CodeSpace = ({ language, theme}) => {
   const [save,Setsave]=useState(false);
   const [complexity,setComplexity]=useState("");
 
+  useEffect(()=>{
+    if(user.id)setUserId(user.id);
+  },[])
   useEffect(() => {
     const fetchSubmissions = async () => {
-      const submissions = await getSubmissions();
+      const submissions = await getSubmissions(userId);
       setUserSubs(submissions);
+      
     };
     fetchSubmissions();
   }, [selectedSubmissionId,save]);
