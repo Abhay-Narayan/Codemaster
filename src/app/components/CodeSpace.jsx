@@ -35,7 +35,7 @@ const CodeSpace = ({ language, theme}) => {
   const [complexity,setComplexity]=useState("");
 
   useEffect(()=>{
-    if(user.id)setUserId(user.id);
+    if(user?.id)setUserId(user.id);
   },[])
   useEffect(() => {
     const fetchSubmissions = async () => {
